@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Management</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; }
+        .form-container h2 { text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Investment Management</h2>
+    <form action="javascript:void(0);" method="post">
+        <div class="form-group">
+            <label for="investmentType">Investment Type:</label>
+            <select id="investmentType" name="investmentType">
+                <option value="stocks">Stocks</option>
+                <option value="bonds">Bonds</option>
+                <option value="mutual_funds">Mutual Funds</option>
+                <option value="real_estate">Real Estate</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Investment Amount:</label>
+            <input type="text" id="amount" name="amount" required>
+        </div>
+        <div class="form-group">
+            <label for="recommendations">Investment Recommendations:</label>
+            <select id="recommendations" name="recommendations">
+                <option value="low_risk">Low Risk</option>
+                <option value="medium_risk">Medium Risk</option>
+                <option value="high_risk">High Risk</option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
