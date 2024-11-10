@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial and Budget Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .summary {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .summary p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        .expenses {
+            margin-top: 20px;
+        }
+        .expenses h3 {
+            margin-bottom: 10px;
+        }
+        .expenses ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .expenses li {
+            background-color: #e9e9e9;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .expenses li span {
+            font-weight: bold;
+        }
+        .delete-btn {
+            background-color: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Financial & Budget Tracker</h2>
+        <label for="income">Monthly Income:</label>
+        <input type="number" id="income" placeholder="Enter your income" required>
+        <label for="expenseDesc">Expense Description:</label>
+        <input type="text" id="expenseDesc" placeholder="Enter expense description" required>
+        <label for="expenseAmount">Amount:</label>
+        <input type="number" id="expenseAmount" placeholder="Enter expense amount" required>
+        <button onclick="addExpense()">Add Expense</button>
+        <div class="summary">
+            <p><strong>Total Income:</strong> $<span id="totalIncome">0.00</span></p>
+            <p><strong>Total Expenses:</strong> $<span id="totalExpenses">0.00</span></p>
+            <p><strong>Remaining Budget:</strong> $<span id="remainingBudget">0.00</span></p>
+        </div>
+        <div class="expenses">
+            <h3>Expenses List:</h3>
+            <ul id="expensesList"></ul>
+        </div>
+    </div>
+
+    <script>
+        let totalIncome = 0;
+        let totalExpenses = 0;
+        const expensesList = document.getElementById("expensesList");
+        const incomeInput = document.getElementById("income");
+        const expenseDescInput = document.getElementById("expenseDesc");
+        const expenseAmountInput = document.getElementById("expenseAmount");
+
+        // Update income when input changes
+        incomeInput.addEventListener("input", function() {
+            totalIncome = parseFloat(this.value) || 0;
+            updateSummary();
+        });
+
+        // Function to add expense
+        function addExpense() {
+            const expenseDesc = expenseDescInput.value.trim();
+            const expenseAmount = parseFloat(expenseAmountInput.value) || 0;
+
+            if (expenseDesc === "") {
+                alert("Please enter an expense description.");
+                return;
+            }
+
+            if (expenseAmount <= 0) {
+                alert("Please enter a valid expense amount.");
+                return;
+            }
+
+            totalExpenses += expenseAmount;
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${expenseDesc}</span> $${expenseAmount.toFixed(2)} <button class="delete-btn" onclick="deleteExpense(this, ${expenseAmount})">Delete</button>`;
+            expensesList.appendChild(li);
+
+            // Clear input fields
+            expenseDescInput.value = '';
+            expenseAmountInput.value = '';
+
+            updateSummary();
+        }
+
+        // Function to delete an expense
+        function deleteExpense(button, amount) {
+            // Remove the expense amount from totalExpenses
+            totalExpenses -= amount;
+            // Remove the list item from the DOM
+            button.parentElement.remove();
+            updateSummary();
+        }
+
+        // Function to update the summary
+        function updateSummary() {
+            document.getElementById("totalIncome").innerText = totalIncome.toFixed(2);
+            document.getElementById("totalExpenses").innerText = totalExpenses.toFixed(2);
+            document.getElementById("remainingBudget").innerText = (totalIncome - totalExpenses).toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
