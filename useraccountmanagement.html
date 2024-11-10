@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin-top: 30px;
+        }
+        .delete-account button {
+            background-color: #FF4B4B;
+        }
+        .delete-account button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>User Account Management</h1>
+        <div class="section">
+            <h2>Create Account</h2>
+            <form action="/submit_account" method="POST">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="^[a-zA-Z]+$" title="Username should only contain letters.">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="8" pattern="^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$" title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.">
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required minlength="8" pattern="^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$" title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.">
+
+                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+        <div class="section">
+            <h2>Manage Account</h2>
+            <form action="/update_account" method="POST">
+                <label for="username">Update Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="20" pattern="^[a-zA-Z]+$" title="Username should only contain letters.">
+
+                <label for="email">Update Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Update Password:</label>
+                <input type="password" id="password" name="password" required minlength="8" pattern="^(?=.[a-z])(?=.[A-Z])(?=.*\d).+$" title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.">
+                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+                <button type="submit">Update Account</button>
+            </form>
+        </div>
+        <div class="section delete-account">
+            <h2>Delete Account</h2>
+            <form action="/delete_account" method="POST">
+                <label for="delete_username">Username:</label>
+                <input type="text" id="delete_username" name="delete_username" required minlength="3" maxlength="20" pattern="^[a-zA-Z]+$" title="Username should only contain letters.">
+                <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+
+                <button type="submit">Delete Account</button>
+            </form>
+        </div>
+
+        <div class="link">
+            <p><a href="/login">Back to Login</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        .contact-info h2 {
+            color: #555;
+        }
+        .contact-info p {
+            margin: 5px 0;
+        }
+        .contact-info a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        .map-container {
+            margin-bottom: 20px;
+        }
+        .map-container h2 {
+            color: #555;
+        }
+        iframe {
+            border: 0;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .contact-form input, 
+        .contact-form textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .contact-form button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .contact-form button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>Email: <a href="mailto:contact@example.com">contact@example.com</a></p>
+            <p>Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+            <p>Address: VIT-AP University, G-30, Inavolu, Beside AP Secretariat, Amaravati, Andhra Pradesh 522237</p>
+        </div>
+
+        <div class="map-container">
+            <h2>Our Location</h2>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387140.5071462135!2d80.56464004760036!3d16.516732223512474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a2b7b43f007bb7f%3A0xf7e5c3c7d3f3d64a!2sVIT-AP%20University%2C%20G-30%2C%20Inavolu%2C%20Beside%20AP%20Secretariat%2C%20Amaravati%2C%20Andhra%20Pradesh%20522237!5e0!3m2!1sen!2sin!4v1631031684211!5m2!1sen!2sin"
+                width="100%"
+                height="300"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <form class="contact-form" id="contactForm">
+            <label for="name">Name (max 35 characters):</label>
+            <input type="text" id="name" name="name" maxlength="35" required>
+
+            <label for="email">Email (max 35 characters):</label>
+            <input type="email" id="email" name="email" maxlength="35" required>
+
+            <label for="message">Message (max 50 characters):</label>
+            <textarea id="message" name="message" rows="5" maxlength="50" required></textarea>
+
+            <button type="submit">Send Message</button>
+            <div class="message" id="formMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const formMessage = document.getElementById('formMessage');
+
+            // Clear previous messages
+            formMessage.textContent = '';
+            formMessage.className = 'message';
+
+            // Simple validation
+            if (!name || !email || !message) {
+                formMessage.textContent = 'All fields are required.';
+                formMessage.className = 'message error';
+                return;
+            }
+
+            // Name should only contain letters
+            const namePattern = /^[a-zA-Z\s]+$/; // Allow spaces between names
+            if (!namePattern.test(name)) {
+                formMessage.textContent = 'Name must contain only letters.';
+                formMessage.className = 'message error';
+                return;
+            }
+
+            // Email format validation
+            const emailPattern = /^[^\s@]+@gmail\.com$/;
+            if (!emailPattern.test(email)) {
+                formMessage.textContent = 'Please enter a valid Email address ending with @gmail.com.';
+                formMessage.className = 'message error';
+                return;
+            }
+
+            // If everything is valid
+            formMessage.textContent = 'Message sent successfully!';
+            formMessage.className = 'message success';
+
+            // Reset the form
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+</body>
+</html>
