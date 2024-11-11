@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Data Aggregation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9; }
+        .form-container h2 { text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="password"], select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Aggregate Financial Data</h2>
+    <form action="javascript:void(0);" method="post">
+        <div class="form-group">
+            <label for="bankAccount">Bank Account Number:</label>
+            <input type="text" id="bankAccount" name="bankAccount" required>
+        </div>
+        <div class="form-group">
+            <label for="creditCard">Credit Card Number:</label>
+            <input type="text" id="creditCard" name="creditCard" required>
+        </div>
+        <div class="form-group">
+            <label for="investmentAccount">Investment Account Number:</label>
+            <input type="text" id="investmentAccount" name="investmentAccount">
+        </div>
+        <div class="form-group">
+            <label for="dataSource">Choose Financial Data Source:</label>
+            <select id="dataSource" name="dataSource">
+                <option value="bank">Bank</option>
+                <option value="credit_card">Credit Card</option>
+                <option value="investment">Investment Account</option>
+            </select>
+        </div>
+        <button type="submit">Aggregate Data</button>
+    </form>
+</div>
+</body>
+</html>
