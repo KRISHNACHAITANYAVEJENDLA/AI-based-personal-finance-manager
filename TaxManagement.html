@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tax Management System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; }
+        h1 { text-align: center; margin-bottom: 20px; }
+        label, input { display: block; width: 100%; margin-top: 10px; }
+        input { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; }
+        button { width: 100%; padding: 10px; margin-top: 20px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #4cae4c; }
+        #result { margin-top: 20px; padding: 10px; background-color: #f1f1f1; border-radius: 5px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tax Management System</h1>
+        <form id="taxForm">
+            <label for="income">Annual Income ($):</label>
+            <input type="number" id="income" placeholder="Enter your income" min="0" required>
+            
+            <label for="deductions">Deductions ($):</label>
+            <input type="number" id="deductions" placeholder="Enter your deductions" min="0" required>
+            
+            <label for="taxRate">Tax Rate (%):</label>
+            <input type="number" id="taxRate" placeholder="Enter tax rate (0-100)" min="0" max="100" required>
+
+            <button type="submit">Calculate Tax</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('taxForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const income = parseFloat(document.getElementById('income').value);
+            const deductions = parseFloat(document.getElementById('deductions').value);
+            const taxRate = parseFloat(document.getElementById('taxRate').value);
+            const resultDiv = document.getElementById('result');
+
+            // Check for valid ranges
+            if (income < 0) {
+                resultDiv.textContent = 'Income cannot be negative.';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            if (deductions < 0) {
+                resultDiv.textContent = 'Deductions cannot be negative.';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            if (deductions > income) {
+                resultDiv.textContent = 'Deductions cannot exceed annual income.';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            if (taxRate < 0 || taxRate > 100) {
+                resultDiv.textContent = 'Tax rate must be between 0 and 100%.';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            // Calculate tax due
+            const taxableIncome = income - deductions;
+            const tax = (taxableIncome * taxRate) / 100;
+            
+            resultDiv.textContent = Your estimated tax is $${tax.toFixed(2)}.;
+            resultDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        label { margin-top: 10px; font-weight: bold; display: block; }
+        input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; }
+        textarea { resize: vertical; }
+        button { width: 100%; padding: 10px; margin-top: 20px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #4cae4c; }
+        .message { margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Feedback Form</h2>
+        <form id="feedbackForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Your email">
+
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+                <option value="5">Excellent</option>
+                <option value="4">Good</option>
+                <option value="3">Average</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select>
+
+            <label for="comments">Comments (max 20 words):</label>
+            <textarea id="comments" name="comments" rows="4" required placeholder="Your comments"></textarea>
+
+            <button type="submit">Submit Feedback</button>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const rating = document.getElementById('rating').value;
+            const comments = document.getElementById('comments').value;
+            const messageDiv = document.getElementById('message');
+
+            const validDomain = '@gmail.com';
+            if (!email.endsWith(validDomain)) {
+                messageDiv.textContent = Please use an email address that ends with "${validDomain}".;
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                return;
+            }
+
+            const wordCount = comments.trim().split(/\s+/).length;
+            if (wordCount > 20) {
+                messageDiv.textContent = 'Your comment exceeds the 20-word limit. Please shorten it.';
+                messageDiv.style.display = 'block';
+                messageDiv.style.color = 'red';
+                return;
+            }
+
+            messageDiv.textContent = Thank you, ${name}! Your feedback has been successfully submitted.;
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = 'green';
+        });
+    </script>
+</body>
+</html>
